@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>source code structure</title>
+</head>
+<body>
+<script src="script1.js"></script>
+<script src="script2.js"></script>
+<script src="namespace-pattern.js"></script>
+<script src="module-pattern.js"></script>
+<script src="moduleA.js"></script>
+<script src="moduleB.js"></script>
+<script>
+
+    console.log("convert(10)", convert(10), " - convert from script2");
+
+    // Namespace-Pattern => Eliminate name conflicts
+    console.log("myConverter.euroDollar.convert(10)", myConverter.euroDollar.convert(10), " - namespace pattern");
+    console.log("myConverter.euroDollar.exchangeRate", myConverter.euroDollar.exchangeRate, " - access to all data and methods");
+
+    // Module-Pattern => Encapsulation of data and methods
+    console.log("myCurrencyConverter.convert(10)", myCurrencyConverter.convert(10), " - only access to desired data and methods")
+
+    // imported modules in module
+    moduleB.print();
+
+</script>
+
+<script type="module">
+
+    // native module support in ECMAScript 6
+
+    // export and import individual variables and methods
+    import { sendFacebookMessage, sendTwitterMessage, sendMessageAllowed } from './exportedModule.js';
+
+    console.log("send message is allowed: ", sendMessageAllowed);
+    sendFacebookMessage("breaking news ...");
+    sendTwitterMessage("breaking news ...");
+
+
+    // export and import a default object
+    import expModule from './exportedCurrencyConverter.js';
+    expModule.print(10);
+
+</script>
+</body>
+</html>
