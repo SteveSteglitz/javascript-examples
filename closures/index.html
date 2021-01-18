@@ -1,10 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>closures</title>
 </head>
 <body>
-$END$
+<script>
+
+    //Example 1
+    console.log('Example 1');
+    console.log('============================');
+
+    function celebrateBirthday(name) {  //paramter wird in der innereren Fkt "eingeschlossen"
+        let age = 0;  //variable wird in der inneren Fkt "eingeschlossen"
+
+        let innerFunction = function() {
+            age++;
+            console.log(`${name} is ${age} years old`);
+        }
+        return innerFunction;
+    }
+
+    let peter = celebrateBirthday("Peter");
+    peter();
+    peter();
+    peter();
+    let lucy = celebrateBirthday("Lucy");
+    lucy();
+    peter();
+    lucy();
+    lucy();
+
+    //Example 2
+    console.log('Example 2');
+    console.log('============================');
+
+    function getDiscount(percent){
+        return function (price) {
+            return price - ((price * percent) / 100);
+        }
+    }
+
+    let discount10Percent = getDiscount(10);
+    let discount25Percent = getDiscount(25);
+
+    console.log(`10 percent discount of 100€ are ${discount10Percent(100)}€`);
+    console.log(`25 percent discount of 1000€ are ${discount25Percent(1000)}€`);
+    console.log(`10 percent discount of 500€ are ${discount10Percent(500)}€`);
+    console.log(`25 percent discount of 1000€ are ${discount25Percent(10000)}€`);
+
+    //Example 3
+    console.log('Example 3');
+    console.log('============================');
+
+    function getDiscount2(percent){
+        function calcPrice (price) {
+            return price - ((price * percent) / 100);
+        }
+
+        return {
+            discount: percent,
+            getDiscountedPrice: function (price) {
+                return calcPrice(price)
+            }
+        }
+    }
+
+    let discount50Percent = getDiscount2(50);
+    console.log(`the discount is ${discount50Percent.discount}`);
+    console.log(`50 percent discount of 100€ are ${discount50Percent.getDiscountedPrice(100)}€`)
+</script>
 </body>
 </html>
